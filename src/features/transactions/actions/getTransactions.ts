@@ -1,9 +1,11 @@
 "use server";
+
+import { Transaction } from "../types/Transaction";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 
-export default async function getUserBalance(): Promise<{
-  balance?: number;
+export default async function getTransactions(): Promise<{
+  transactions?: Transaction[];
   error?: string;
 }> {
   const { userId } = await auth();
@@ -17,15 +19,13 @@ export default async function getUserBalance(): Promise<{
       where: {
         userId,
       },
+      orderBy: {
+        createdAt: "desc",
+      },
     });
 
-    const balance = transactions.reduce(
-      (acc, transaction) => acc + transaction.amount,
-      0
-    );
-
-    return { balance };
+    return { transactions };
   } catch (error) {
-    return { error: "Failed to get user balance" + error };
+    return { error: "Failed to get transactions" + error };
   }
 }

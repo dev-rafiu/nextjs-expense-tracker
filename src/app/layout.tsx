@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
-import Header from "@/app/components/Header";
+import Header from "@/features/auth/components/Header";
 import { Roboto } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
