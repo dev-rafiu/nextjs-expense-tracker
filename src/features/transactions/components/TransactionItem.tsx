@@ -2,12 +2,10 @@
 
 import { Transaction } from "../types/Transaction";
 import { formatCurrency } from "@/lib/utils";
-import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { EXPENSE_CATEGORIES, INCOME_CATEGORIES } from "../constants/categories";
 
 function TransactionItem({ transaction }: { transaction: Transaction }) {
-  const [isDeleting, setIsDeleting] = useState(false);
   const isIncome = transaction.amount > 0;
   const amount = Math.abs(transaction.amount);
 
@@ -36,8 +34,7 @@ function TransactionItem({ transaction }: { transaction: Transaction }) {
   return (
     <li
       className={cn(
-        "group relative bg-white rounded-lg  border-slate-200 hover:border-slate-300 hover:shadow-md transition-all duration-200 overflow-hidden",
-        isDeleting && "opacity-50 pointer-events-none"
+        "group relative bg-white rounded-lg  border-slate-200 hover:border-slate-300 hover:shadow-md transition-all duration-200 overflow-hidden"
       )}
     >
       <div className="flex items-center justify-between gap-4 p-2">

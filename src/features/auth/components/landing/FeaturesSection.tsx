@@ -1,5 +1,7 @@
 "use client";
 
+import { motion, useInView } from "framer-motion";
+
 import {
   TrendingUp,
   Shield,
@@ -8,8 +10,12 @@ import {
   Zap,
   CheckCircle2,
 } from "lucide-react";
+import { useRef } from "react";
 
 const FeaturesSection = () => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "0%" });
+
   const features = [
     {
       icon: TrendingUp,
@@ -50,8 +56,20 @@ const FeaturesSection = () => {
   ];
 
   return (
-    <section id="features" className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-50">
-      <div className="max-w-7xl mx-auto">
+    <motion.section
+      ref={ref}
+      id="features"
+      className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-50"
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        // initial={{ opacity: 0, y: 30 }}
+        // animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+        // transition={{ delay: 0.4, duration: 0.8 }}
+        className="max-w-7xl mx-auto"
+      >
         <header className="text-center mb-16 space-y-4">
           <h2 className="text-4xl sm:text-5xl font-bold text-slate-900 space-y-4">
             Everything You Need
@@ -84,8 +102,8 @@ const FeaturesSection = () => {
             );
           })}
         </div>
-      </div>
-    </section>
+      </motion.div>
+    </motion.section>
   );
 };
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { SignInButton, SignedOut } from "@clerk/nextjs";
-import { ArrowRight, Menu } from "lucide-react";
+import { Menu } from "lucide-react";
 import Link from "next/link";
 
 import {
@@ -53,15 +53,14 @@ const LandingHeader = () => {
           <div className="hidden md:flex items-center space-x-3 z-10">
             <SignedOut>
               <SignInButton mode="redirect">
-                <button className="cursor-pointer px-4 py-2 rounded-lg bg-white border border-slate-300 hover:border-slate-400 text-slate-700 hover:text-slate-900 text-sm font-medium transition-all duration-200">
+                <button className="w-30 cursor-pointer px-4 py-2 rounded-lg bg-white border border-slate-300 hover:border-slate-400 text-slate-700 hover:text-slate-900 text-sm font-medium transition-all duration-200">
                   Sign In
                 </button>
               </SignInButton>
 
               <SignInButton mode="redirect">
-                <button className="cursor-pointer px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-900 text-white text-sm font-semibold transition-all duration-200 flex items-center space-x-2 shadow-md hover:shadow-lg">
-                  <span>Get Started</span>
-                  <ArrowRight className="w-4 h-4" />
+                <button className="w-30 cursor-pointer px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-900 text-white text-sm font-semibold transition-all duration-200 flex items-center justify-center space-x-2 shadow-md hover:shadow-lg">
+                  Get Started
                 </button>
               </SignInButton>
             </SignedOut>
@@ -92,7 +91,7 @@ const LandingHeader = () => {
                     </SheetTitle>
                   </SheetHeader>
 
-                  <nav className="flex flex-col space-y-2 mt-8">
+                  <div className="flex flex-col space-y-2 mt-8">
                     <SheetClose asChild>
                       <Link
                         href="#features"
@@ -120,12 +119,11 @@ const LandingHeader = () => {
 
                       <SignInButton mode="redirect">
                         <button className="w-full bg-slate-800 hover:bg-slate-900 text-white px-4 py-3 rounded-lg text-base font-semibold transition-all duration-200 flex items-center justify-center space-x-2 shadow-md hover:shadow-lg">
-                          <span>Get Started</span>
-                          <ArrowRight className="w-4 h-4" />
+                          Get Started
                         </button>
                       </SignInButton>
                     </div>
-                  </nav>
+                  </div>
                 </SheetContent>
               </Sheet>
             </SignedOut>

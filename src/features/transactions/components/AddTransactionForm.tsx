@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import addTransaction from "../actions/addTransaction";
 import { DrawerClose, DrawerFooter } from "@/components/ui/drawer";
+import { DialogFooter } from "@/components/ui/dialog";
 import {
   Select,
   SelectContent,
@@ -17,20 +18,29 @@ import { EXPENSE_CATEGORIES, INCOME_CATEGORIES } from "../constants/categories";
 
 interface AddTransactionFormProps {
   onSuccess?: () => void;
+  isDialog?: boolean;
 }
 
-const AddTransactionForm = ({ onSuccess }: AddTransactionFormProps) => {
+const AddTransactionForm = ({
+  onSuccess,
+  isDialog = false,
+}: AddTransactionFormProps) => {
   const [transactionType, setTransactionType] = useState<"income" | "expense">(
     "expense"
   );
   const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [selectedDate, setSelectedDate] = useState<string>(() => {
+    const today = new Date();
+    return today.toISOString().split("T")[0];
+  });
   const router = useRouter();
 
   const handleSubmit = async (formData: FormData) => {
     const text = formData.get("text") as string;
     const amount = parseFloat(formData.get("amount") as string);
+    const date = formData.get("date") as string;
 
-    if (!text || !amount) {
+    if (!text || !amount || !date) {
       toast.error("Please fill in all fields");
       return;
     }
@@ -42,6 +52,7 @@ const AddTransactionForm = ({ onSuccess }: AddTransactionFormProps) => {
     const formDataToSend = new FormData();
     formDataToSend.append("text", text);
     formDataToSend.append("amount", finalAmount.toString());
+    formDataToSend.append("date", date);
 
     // Add category for both income and expenses
     if (selectedCategory) {
@@ -61,7 +72,10 @@ const AddTransactionForm = ({ onSuccess }: AddTransactionFormProps) => {
   };
 
   return (
-    <form action={handleSubmit} className="px-4 space-y-4">
+    <form
+      action={handleSubmit}
+      className={isDialog ? "space-y-4" : "px-4 space-y-4"}
+    >
       {/* transaction type toggle */}
       <div className="flex gap-2">
         <button
@@ -95,6 +109,23 @@ const AddTransactionForm = ({ onSuccess }: AddTransactionFormProps) => {
           <ArrowUp className="w-4 h-4" />
           <span className="font-medium">Income</span>
         </button>
+      </div>
+
+      {/* date picker */}
+      <div className="space-y-2">
+        <label htmlFor="date" className="text-sm font-medium text-slate-700">
+          Date
+        </label>
+        <input
+          type="date"
+          name="date"
+          id="date"
+          value={selectedDate}
+          onChange={(e) => setSelectedDate(e.target.value)}
+          required
+          max={new Date().toISOString().split("T")[0]}
+          className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-800 focus:border-transparent"
+        />
       </div>
 
       {/* category selector - for both income and expenses */}
@@ -178,23 +209,41 @@ const AddTransactionForm = ({ onSuccess }: AddTransactionFormProps) => {
         />
       </div>
 
-      <DrawerFooter>
-        <button
-          type="submit"
-          className="w-full bg-slate-800 hover:bg-slate-900 text-white px-4 py-3 rounded-lg font-semibold transition-all duration-200 shadow-md hover:shadow-lg"
-        >
-          Add Transaction
-        </button>
-
-        <DrawerClose asChild>
+      {isDialog ? (
+        <DialogFooter className="flex-col sm:flex-row gap-2">
+          <button
+            type="submit"
+            className="w-full sm:w-auto bg-slate-800 hover:bg-slate-900 text-white px-4 py-3 rounded-lg font-semibold transition-all duration-200 shadow-md hover:shadow-lg"
+          >
+            Add Transaction
+          </button>
           <button
             type="button"
-            className="w-full bg-white border border-slate-300 hover:border-slate-400 text-slate-700 hover:text-slate-900 px-4 py-3 rounded-lg font-medium transition-all duration-200"
+            onClick={onSuccess}
+            className="w-full sm:w-auto bg-white border border-slate-300 hover:border-slate-400 text-slate-700 hover:text-slate-900 px-4 py-3 rounded-lg font-medium transition-all duration-200"
           >
             Cancel
           </button>
-        </DrawerClose>
-      </DrawerFooter>
+        </DialogFooter>
+      ) : (
+        <DrawerFooter>
+          <button
+            type="submit"
+            className="w-full bg-slate-800 hover:bg-slate-900 text-white px-4 py-3 rounded-lg font-semibold transition-all duration-200 shadow-md hover:shadow-lg"
+          >
+            Add Transaction
+          </button>
+
+          <DrawerClose asChild>
+            <button
+              type="button"
+              className="w-full bg-white border border-slate-300 hover:border-slate-400 text-slate-700 hover:text-slate-900 px-4 py-3 rounded-lg font-medium transition-all duration-200"
+            >
+              Cancel
+            </button>
+          </DrawerClose>
+        </DrawerFooter>
+      )}
     </form>
   );
 };

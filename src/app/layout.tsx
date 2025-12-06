@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import { Toaster } from "sonner";
 import ConditionalHeader from "@/features/auth/components/ConditionalHeader";
 import ConditionalBottomNav from "@/features/navigation/components/ConditionalBottomNav";
+import ConditionalSidebar from "@/features/navigation/components/ConditionalSidebar";
 
 import "./globals.css";
 
@@ -29,8 +30,9 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en" className="scroll-smooth">
         <body className={`${inter.variable} font-sans antialiased`}>
+          <ConditionalSidebar />
           <ConditionalHeader />
-          <main>{children}</main>
+          <main className="md:ml-64">{children}</main>
           <ConditionalBottomNav />
           <Toaster position="top-right" richColors />
         </body>

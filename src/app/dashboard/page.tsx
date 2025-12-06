@@ -12,8 +12,10 @@ export default async function Dashboard() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8 space-y-8">
-      <h2 className="text-slate-900">Welcome back, {user.firstName}!</h2>
+    <div className="max-w-4xl mx-auto px-4 py-8 md:py-12 space-y-8">
+      <h2 className="text-2xl md:text-3xl font-semibold text-slate-900">
+        Welcome back, {user.firstName}!
+      </h2>
 
       <Balance />
       <IncomeExpense />

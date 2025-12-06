@@ -20,6 +20,7 @@ export default async function addTransaction(
   const textValue = formData.get("text");
   const amountValue = formData.get("amount");
   const categoryValue = formData.get("category");
+  const dateValue = formData.get("date");
 
   if (!textValue || textValue === "" || !amountValue) {
     return { error: "Missing required fields" };
@@ -30,6 +31,9 @@ export default async function addTransaction(
   const category: string | null = categoryValue
     ? categoryValue.toString()
     : null;
+  const transactionDate = dateValue
+    ? new Date(dateValue.toString())
+    : new Date();
 
   // get logged in user
   const { userId } = await auth();
@@ -44,6 +48,7 @@ export default async function addTransaction(
         text,
         amount,
         category,
+        transactionDate,
         userId,
       },
     });

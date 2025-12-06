@@ -23,6 +23,7 @@ id String   @id @default(uuid())
 text String
 amount Float
 category String?
+transactionDate DateTime @default(now())
 // relation to user
 userId String
 user User @relation(fields: [userId], references: [clerkUserId], onDelete: Cascade)

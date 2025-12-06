@@ -1,12 +1,26 @@
 "use client";
 
+import { motion, useInView } from "framer-motion";
+
 import { SignInButton } from "@clerk/nextjs";
 import { ArrowRight } from "lucide-react";
+import { useRef } from "react";
 
 const CTASection = () => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "0%" });
+
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-900">
-      <div className="max-w-4xl mx-auto text-center">
+    <motion.section
+      ref={ref}
+      className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-900"
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="max-w-4xl mx-auto text-center"
+      >
         <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
           Ready to Take Control?
         </h2>
@@ -22,8 +36,8 @@ const CTASection = () => {
             <ArrowRight className="w-5 h-5" />
           </button>
         </SignInButton>
-      </div>
-    </section>
+      </motion.div>
+    </motion.section>
   );
 };
 

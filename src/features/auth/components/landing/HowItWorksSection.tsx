@@ -1,6 +1,12 @@
 "use client";
 
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
+
 const HowItWorksSection = () => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "0%" });
+
   const steps = [
     {
       step: "01",
@@ -23,16 +29,26 @@ const HowItWorksSection = () => {
   ];
 
   return (
-    <section id="how-it-works" className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        <header className="text-center mb-16 space-y-4">
+    <motion.section
+      ref={ref}
+      id="how-it-works"
+      className="py-20 px-4 sm:px-6 lg:px-8"
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="max-w-7xl mx-auto"
+      >
+        <motion.header className="text-center mb-16 space-y-4">
           <h2 className="text-4xl sm:text-5xl font-bold text-slate-900 space-y-4">
             How It Works
           </h2>
-          <p className="text-lg text-slate-600 max-w-100 mx-auto">
+
+          <p className="text-lg text-slate-600 max-w-80 mx-auto">
             Get started in minutes and take control of your finances today.
           </p>
-        </header>
+        </motion.header>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
           {steps.map((item, index) => (
@@ -49,8 +65,8 @@ const HowItWorksSection = () => {
             </div>
           ))}
         </div>
-      </div>
-    </section>
+      </motion.div>
+    </motion.section>
   );
 };
 

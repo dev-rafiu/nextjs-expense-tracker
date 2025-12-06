@@ -11,7 +11,7 @@ export default async function TransactionsPage() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8 pb-24">
+    <div className="max-w-4xl mx-auto px-4 py-8 md:py-12 pb-24 md:pb-12">
       <TransactionList />
       <FloatingAddButton />
     </div>
