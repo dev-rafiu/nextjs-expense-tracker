@@ -1,24 +1,19 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { Transaction } from "../types/Transaction";
 import { formatCurrency } from "@/lib/utils";
 import { cn } from "@/lib/utils";
 import { EXPENSE_CATEGORIES, INCOME_CATEGORIES } from "../constants/categories";
+import { Pencil, Trash2 } from "lucide-react";
+import EditTransactionDialog from "./EditTransactionDialog";
+import DeleteTransactionDialog from "./DeleteTransactionDialog";
+import { Button } from "@/components/ui/button";
 
 function TransactionItem({ transaction }: { transaction: Transaction }) {
   const isIncome = transaction.amount > 0;
   const amount = Math.abs(transaction.amount);
-
-  // const handleDeleteTransaction = async (id: string) => {
-  //   setIsDeleting(true);
-  //   const { error, message } = await deleteTransaction(id);
-  //   if (error) {
-  //     toast.error(error);
-  //     setIsDeleting(false);
-  //   } else {
-  //     toast.success(message);
-  //   }
-  // };
+  const router = useRouter();
 
   const getCategoryInfo = (category: string | null | undefined) => {
     if (!category) return null;
@@ -31,17 +26,26 @@ function TransactionItem({ transaction }: { transaction: Transaction }) {
 
   const categoryInfo = getCategoryInfo(transaction.category);
 
+  const handleDeleteSuccess = () => {
+    router.refresh();
+  };
+
+  const handleEditSuccess = () => {
+    router.refresh();
+  };
+
   return (
     <li
       className={cn(
-        "group relative bg-white rounded-lg  border-slate-200 hover:border-slate-300 hover:shadow-md transition-all duration-200 overflow-hidden"
+        "group relative bg-white rounded-lg border border-slate-200 hover:border-slate-300 hover:shadow-md transition-all duration-200 overflow-hidden"
       )}
     >
-      <div className="flex items-center justify-between gap-4 p-2">
-        <div className="flex items-center gap-4">
+      <div className="flex items-center justify-between gap-4 p-3">
+        <div className="flex items-center gap-4 flex-1 min-w-0">
           {categoryInfo &&
             (() => {
               const Icon = categoryInfo.icon;
+
               return (
                 <div
                   className={cn(
@@ -55,7 +59,7 @@ function TransactionItem({ transaction }: { transaction: Transaction }) {
               );
             })()}
 
-          <div className="">
+          <div className="flex-1 min-w-0">
             {categoryInfo && (
               <p className="text-sm text-slate-900 font-semibold">
                 {categoryInfo.label}
@@ -68,7 +72,7 @@ function TransactionItem({ transaction }: { transaction: Transaction }) {
           </div>
         </div>
 
-        <div className="">
+        <div className="flex items-center gap-2 shrink-0">
           <span
             className={cn(
               "font-semibold text-sm whitespace-nowrap",
@@ -78,14 +82,36 @@ function TransactionItem({ transaction }: { transaction: Transaction }) {
             {isIncome ? "+" : "-"}${formatCurrency(amount)}
           </span>
 
-          {/* <button
-            onClick={() => handleDeleteTransaction(transaction.id)}
-            disabled={isDeleting}
-            className="opacity-1 group-hover:opacity-100 transition-opacity duration-200 p-2 hover:bg-red-50 rounded-lg text-red-600 hover:text-red-700 disabled:opacity-50"
-            aria-label="Delete transaction"
-          >
-            <Trash2 className="w-4 h-4" />
-          </button> */}
+          <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+            <EditTransactionDialog
+              transaction={transaction}
+              onSuccess={handleEditSuccess}
+            >
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-8 w-8 text-slate-600 hover:text-slate-900"
+                aria-label="Edit transaction"
+              >
+                <Pencil className="w-4 h-4" />
+              </Button>
+            </EditTransactionDialog>
+
+            <DeleteTransactionDialog
+              transactionId={transaction.id}
+              transactionText={transaction.text}
+              onSuccess={handleDeleteSuccess}
+            >
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-8 w-8 text-red-600 hover:text-red-700 hover:bg-red-50"
+                aria-label="Delete transaction"
+              >
+                <Trash2 className="w-4 h-4" />
+              </Button>
+            </DeleteTransactionDialog>
+          </div>
         </div>
       </div>
     </li>

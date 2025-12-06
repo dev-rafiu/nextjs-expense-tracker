@@ -5,4 +5,5 @@ export interface Transaction {
   category?: string | null;
   userId: string;
   createdAt: Date;
+  transactionDate?: Date;
 }
