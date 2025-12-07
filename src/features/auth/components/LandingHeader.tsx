@@ -12,6 +12,7 @@ import {
   SheetTrigger,
   SheetClose,
 } from "@/components/ui/sheet";
+import Logo from "./Logo";
 
 const LandingHeader = () => {
   return (
@@ -19,14 +20,7 @@ const LandingHeader = () => {
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative flex items-center justify-between h-16">
           {/* logo - left */}
-          <Link href="/" className="flex items-center space-x-2 z-10">
-            <div className="w-8 h-8 bg-slate-800 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">FS</span>
-            </div>
-            <span className="text-xl font-semibold text-slate-900">
-              FlowSpend
-            </span>
-          </Link>
+          <Logo href="/" />
 
           {/* available links  */}
           <ul className="hidden md:flex items-center space-x-8 absolute left-1/2 transform -translate-x-1/2">
@@ -81,13 +75,8 @@ const LandingHeader = () => {
 
                 <SheetContent side="right" className="w-[300px] sm:w-[400px]">
                   <SheetHeader>
-                    <SheetTitle className="text-left flex items-center space-x-2">
-                      <div className="w-8 h-8 bg-slate-800 rounded-lg flex items-center justify-center">
-                        <span className="text-white font-bold text-sm">FS</span>
-                      </div>
-                      <span className="text-xl font-semibold text-slate-900">
-                        FlowSpend
-                      </span>
+                    <SheetTitle className="text-left">
+                      <Logo />
                     </SheetTitle>
                   </SheetHeader>
 
