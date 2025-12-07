@@ -56,7 +56,7 @@ export default function RootLayout({
         <body className={`${inter.variable} font-sans antialiased`}>
           <ConditionalSidebar />
           <ConditionalHeader />
-          <main className="md:ml-64">{children}</main>
+          <main>{children}</main>
           <ConditionalBottomNav />
           <Toaster position="top-right" richColors />
         </body>
