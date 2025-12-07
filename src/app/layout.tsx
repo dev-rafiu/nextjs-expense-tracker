@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     siteName: "FlowSpend",
     images: [
       {
-        url: "/opengraph-image.png",
+        url: "/og-image.png",
         width: 1170,
         height: 780,
         alt: "FlowSpend",
