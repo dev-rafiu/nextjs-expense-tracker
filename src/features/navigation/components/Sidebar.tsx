@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, List, BarChart3, TestTube } from "lucide-react";
+import { Home, List, BarChart3 } from "lucide-react";
 import { UserButton } from "@clerk/nextjs";
 import { cn } from "@/lib/utils";
 
@@ -24,11 +24,6 @@ const Sidebar = () => {
       href: "/analytics",
       icon: BarChart3,
       label: "Analytics",
-    },
-    {
-      href: "/temp",
-      icon: TestTube,
-      label: "Temp",
     },
   ];
 
