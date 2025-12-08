@@ -6,8 +6,8 @@ const Balance = async () => {
 
   return (
     <div className="">
-      <p className="text-base text-slate-500">Total Balance:</p>
-      <h1 className="text-2xl font-bold text-slate-800">
+      <p className="text-base text-slate-600 font-medium">Total Balance:</p>
+      <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mt-1">
         ${formatCurrency(balance ?? 0)}
       </h1>
     </div>

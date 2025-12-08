@@ -2,30 +2,36 @@
 
 import { useState } from "react";
 import { UserButton } from "@clerk/nextjs";
-import { Menu } from "lucide-react";
+import { Search } from "lucide-react";
 import Logo from "./Logo";
+import { Input } from "@/components/ui/input";
 
 const Header = () => {
-  const [open, setOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   return (
     <header className="dashboard-header sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200 h-16">
-      <div className="flex items-center justify-between h-full px-4">
+      <div className="flex items-center justify-between h-full px-4 gap-4">
         {/* logo - visible on mobile, hidden on desktop */}
         <div className="md:hidden">
           <Logo href="/dashboard" />
         </div>
 
-        {/* menu icon - hidden on mobile, visible on desktop */}
-        <button
-          className="hidden md:block p-2 text-slate-700 hover:text-slate-900 transition-colors cursor-pointer"
-          aria-label="Open menu"
-          onClick={() => setOpen(!open)}
-        >
-          <Menu className="w-6 h-6" />
-        </button>
+        {/* search bar - visible on desktop */}
+        <div className="hidden md:flex flex-1 max-w-md relative">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-4 h-4" />
+          <Input
+            type="text"
+            placeholder="Search..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="pl-10! h-10 w-full rounded-full! lg:rounded-md!"
+          />
+        </div>
 
-        <UserButton />
+        <div className="ml-auto">
+          <UserButton />
+        </div>
       </div>
     </header>
   );

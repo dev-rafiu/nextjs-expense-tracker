@@ -60,8 +60,8 @@ export default function RootLayout({
           <div className="dashboard-grid-container relative">
             <ConditionalSidebar />
             <ConditionalHeader />
-            <main className="dashboard-main px-2 h-screen overflow-y-auto">
-              <div className="h-full p-4 pr-0">{children}</div>
+            <main className="dashboard-main px-2 lg:px-0 h-screen overflow-y-auto mb-14 lg:mb-0">
+              <div className="h-full p-2 lg:p-0">{children}</div>
             </main>
             <ConditionalBottomNav />
           </div>

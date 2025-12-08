@@ -48,7 +48,7 @@ const HeroSection = () => {
 
         <SignInButton mode="redirect">
           <button className="cursor-pointer bg-slate-800 hover:bg-slate-900 text-white px-8 py-4 rounded-lg text-base font-semibold transition-all duration-200 flex items-center justify-center space-x-2 mx-auto shadow-lg hover:shadow-xl">
-            <span>Get Started Free</span>
+            <span>Get started for free</span>
             <ArrowRight className="w-5 h-5" />
           </button>
         </SignInButton>

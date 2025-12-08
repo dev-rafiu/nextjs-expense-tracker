@@ -12,14 +12,16 @@ export default async function Dashboard() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 space-y-8">
-      <h2 className="text-xl md:text-2xl font-semibold text-slate-900">
-        Welcome back, {user.firstName}!
-      </h2>
+    <div className="h-full w-full bg-slate-100">
+      <div className="max-w-8xl mx-auto px-4 py-8 space-y-8">
+        <h2 className="text-xl md:text-2xl font-semibold text-slate-800">
+          Welcome back, {user.firstName}!
+        </h2>
 
-      <Balance />
-      <KPIs />
-      <RecentTransactions />
+        <Balance />
+        <KPIs />
+        <RecentTransactions />
+      </div>
     </div>
   );
 }

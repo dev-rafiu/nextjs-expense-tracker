@@ -26,13 +26,15 @@ async function RecentTransactions() {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 mb-20 md:mb-0">
       <header className="flex items-center justify-between">
-        <p className="font-semibold text-slate-900">Recent transactions</p>
+        <p className="font-semibold text-slate-800 text-lg">
+          Recent transactions
+        </p>
 
         <Link
           href="/transactions"
-          className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors"
+          className="text-sm font-medium text-slate-600 hover:text-slate-800 transition-colors"
         >
           View All
         </Link>
